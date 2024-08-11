@@ -15,64 +15,6 @@ from users.forms import UserRegisterFrom, UserProfileFrom
 from users.models import User
 
 
-# class UserView(LoginRequiredMixin, ListView):
-#     model = User
-#     fields = ['email', 'first_name', 'last_name', 'comment']
-#     template_name = 'users/user_list.html'
-#     extra_context = {'title': 'Пользователи'}
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return context
-#
-#
-# class UserDetailView(LoginRequiredMixin,DetailView):
-#     model = User
-#     fields = ['email', 'first_name', 'last_name', 'comment']
-#     template_name = 'users/user_detail.html'
-#     success_url = reverse_lazy('users:user_list')
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return context
-#
-#
-# class UserCreateView(LoginRequiredMixin, CreateView):
-#     model = User
-#     fields = ['email', 'first_name', 'last_name', 'comment']
-#     template_name = 'users/user_from.html'
-#     success_url = reverse_lazy('users:user_list')
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Создание пользователя'
-#         return context
-#
-#
-# class UserUpdateView(LoginRequiredMixin, UpdateView):
-#     model = User
-#     fields = ['email', 'first_name', 'last_name', 'comment']
-#     template_name = 'users/user_from.html'
-#     success_url = reverse_lazy('users:user_list')
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Редактирование пользователя'
-#         return context
-#
-#
-# class UserDeleteView(LoginRequiredMixin, DeleteView):
-#     model = User
-#     template_name = 'users/user_delete.html'
-#     success_url = reverse_lazy('users:user_list')
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         user_item = self.get_object()
-#         context['title'] = user_item.email
-#         return context
-
-
 class UserLogin(LoginView):
     template_name = 'users/login.html'
 
