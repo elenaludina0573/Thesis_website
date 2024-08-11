@@ -13,8 +13,8 @@ class ServiceListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['name'] = 'Все услуги'
         return context
-    success_url = reverse_lazy('services:service_list')
 
     def get_queryset(self, *args, **kwargs):
         queryset = Service.objects.all(*args, **kwargs)
@@ -25,7 +25,7 @@ class ServiceCreateView(CreateView):
     model = Service
     fields = '__all__'
     template_name = 'services/service_form.html'
-    success_url = reverse_lazy('services:services_list')
+    success_url = reverse_lazy('services:service_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -44,6 +44,16 @@ class ServiceDetailView(ListView):
     model = Service
     fields = '__all__'
     template_name = 'services/service_detail.html'
+    success_url = reverse_lazy('services:service_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Подробнее о услуге'
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = Service.objects.filter(id=self.kwargs['pk'])
+        return queryset
 
 
 class ServiceUpdateView(UpdateView):
@@ -88,3 +98,9 @@ class SitemapView(ListView):
     model = Sitemap
     fields = '__all__'
     template_name = 'services/site_map_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+

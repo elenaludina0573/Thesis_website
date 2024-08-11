@@ -8,8 +8,9 @@ app_name = ServiceConfig.name
 
 urlpatterns = [
     path('', ServiceListView.as_view(), name='service_list'),
+    path('services/', ServiceListView.as_view(), name='service_main'),
     path('services/create/', ServiceCreateView.as_view(), name='service_form'),
-    path('services/<int:pk>/', ServiceDetailView.as_view(), name='service_form'),
+    path('services/<int:pk>/', ServiceDetailView.as_view(), name='service_detail'),
     path('services/<int:pk>/update/', ServiceUpdateView.as_view(), name='service_update'),
     path('services/<int:pk>/delete/', ServiceDeleteView.as_view(), name='service_confirm_delete'),
     path('contact/', ContactView.as_view(), name="contact_list"),

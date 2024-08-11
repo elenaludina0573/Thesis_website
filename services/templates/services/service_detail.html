@@ -10,14 +10,14 @@
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-3">
                 <div class="col">
                     <p class="card shadow-sm">
-                        <img class="card-img-top" src="{{ object.name }}" alt="Фотографии нет">
+                        <img class="card-img-top" src="{{ object.picture }}" alt="Фотографии нет">
                     </p>
                 </div>
                 <div class="col-5 text-md-start">
                     {{ object.description|truncatechars:20 }}
                     <p>
                         <a href="{% url 'services:service_list' %}"
-                           class="btn btn-primary justify-content-md-center my-5">Клиент созданный, {{object.owner}} $</a>
+                           class="btn btn-primary justify-content-md-center my-5">Цена услуги: {{object.price}} $</a>
                     </p>
                 </div>
             </div>

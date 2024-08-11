@@ -8,7 +8,6 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>О компании</title>
 
 
     <!-- Bootstrap core CSS -->
@@ -58,39 +57,27 @@
             </a>
             <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
                 <nav class="ms-4">
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'services:service_list' %}">Главная</a>
                     <a class="p-2 btn btn-outline-primary" href="{% url 'doctor:doctor_list' %}">О компании</a>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'doctor:doctor_list' %}">Наши врачи</a>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'services:service_list' %}">Наши услуги</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'doctor:our_doctors' %}">Наши врачи</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'services:service_main' %}">Наши услуги</a>
                     <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Личный кабинет</a>
                 </nav>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
+
             </button>
         </div>
     </div>
 </header>
 
 <main role="main">
-
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="fs-8 col-md-12">Медицинский центр «Здоровье» - многопрофильный медицинский центр, оказывающий
-                комплекс медицинских услуг по диагностике, профилактике и лечению различных заболеваний.</h1>
-            <p class="lead text-muted">
-
-                </p>
-            <p>
-                <a href="{% url 'users:register' %}" class="btn btn-primary my-2">Регистрация</a>
-                <a href="{% url 'users:login' %}" class="btn btn-secondary my-2">Войти</a>
-            </p>
-        </div>
-    </section>
-
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
+
                 {% block content %}
 
                 {% endblock %}
