@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'services/base.html' %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-6">
+        {{ object.client }}</h1>
+    <h1 class="display-6">Записана на прием ко врачу {{ object.doctor }}</h1>
+    <h1 class="display-6">на {{ object.record_date }} </h1>
+ </div>
+{% endblock %}

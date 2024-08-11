@@ -24,20 +24,53 @@ class Client(models.Model):
         verbose_name = 'клиент'
         verbose_name_plural = 'клиенты'
         ordering = ['-created_at']
+        permissions = [
+            ('ca_add_client', 'Может добавлять клиента'),
+            ('can_change_client', 'Может изменять клиента'),
+            ('can_view_client', 'Может просматривать клиента'),
+        ]
 
 
 class Record(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиент')
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Клиент')
     record_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата записи')
     record_time = models.TimeField(verbose_name='Время записи')
     doctor = models.ForeignKey(Doctor, max_length=100, on_delete=models.CASCADE, verbose_name='Доктор')
-    owner = models.ForeignKey(User, default=True, on_delete=models.CASCADE, verbose_name='пользователь')
+    owner = models.ForeignKey(User, default=True, on_delete=models.CASCADE, verbose_name='Пользователь')
+    publication = models.BooleanField(default=True, verbose_name="Признак публикации")
 
     def __str__(self):
         return (f'{self.client.surname} {self.client.name} {self.client.patronymic} - '
-                f'{self.record_date}, {self.record_time}')
+                f'Вы записаны к {self.doctor} на {self.record_date} в {self.record_time}')
 
     class Meta:
         verbose_name = 'запись'
         verbose_name_plural = 'записи'
-        ordering = ['-record_date']
+        permissions = [
+            ('can_add_record', 'Может добавлять запись'),
+            ('can_change_record', 'Может изменять запись'),
+            ('can_view_record', 'Может просматривать запись'),
+            ('can_delete_record', 'Может удалять запись'),
+        ]
+
+
+class Diagnostics(models.Model):
+    record = models.ForeignKey(Record, on_delete=models.CASCADE, verbose_name='запись')
+    diagnosis = models.CharField(max_length=300, verbose_name='Диагноз')
+    test = models.CharField(max_length=200, verbose_name='Тест')
+    result = models.CharField(max_length=150, verbose_name='Результат')
+    units_of_measurement = models.CharField(max_length=100, verbose_name='Единицы измерения')
+    proper_values = models.CharField(max_length=100, verbose_name='Должные значения')
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Клиент')
+
+    def __str__(self):
+        return f'{self.record.client.surname} {self.record.client.name} {self.record.client.patronymic} - ' \
+               f'Тест: {self.test}, Результат: {self.result}, Единицы измерения: {self.units_of_measurement}' \
+               f'Должные значения: {self.proper_values}, Диагноз: {self.diagnosis}'
+
+    class Meta:
+        verbose_name = 'диагностика'
+        verbose_name_plural = 'диагностики'
+        permissions = [
+            ('can_view_diagnostics', 'Может просматривать диагностики'),
+        ]

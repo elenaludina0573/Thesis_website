@@ -1,14 +1,15 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from health.models import Client, Record
+from health.models import Client, Record, Diagnostics
 
 
-class ClientListView(LoginRequiredMixin, ListView):
+class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Client
     fields = ['name', 'surname', 'phone', 'address', 'email', 'birth_date', 'created_at']
     template_name = 'health/client_list.html'
+    permission_required = 'health.view_client'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -35,11 +36,12 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
         return Client.objects.filter(id=self.kwargs['pk'])
 
 
-class ClientCreateView(LoginRequiredMixin, CreateView):
+class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Client
     fields = '__all__'
     template_name = 'health/client_form.html'
     success_url = reverse_lazy('health:client_list.html')
+    permission_required = 'health.add_client'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -57,11 +59,12 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
         return Client.objects.all()
 
 
-class ClientUpdateView(LoginRequiredMixin, UpdateView):
-    model = Client
+class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Client,
     fields = '__all__'
     template_name = 'health/client_form.html'
     success_url = reverse_lazy('health:client_list.html')
+    permission_required = 'health.change_client'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -86,38 +89,35 @@ class ClientDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 
-class RecordListView(LoginRequiredMixin, ListView):
+class RecordListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Record
     fields = '__all__'
     template_name = 'health/record_list.html'
     success_url = reverse_lazy('health:record_list')
+    permission_required = 'health.view_record'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        client_item = Client.objects.get(id=self.kwargs['pk'])
-        context['title'] = f'Записи клиента {client_item.name} {client_item.surname}'
+        context['title'] = f'Записи клиента'
         return context
 
-    def get_queryset(self):
-        return Record.objects.filter(client_id=self.kwargs['pk'])
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(publication=True)
+        return queryset
 
-class RecordCreateView(CreateView):
+
+class RecordCreateView(PermissionRequiredMixin, CreateView):
     model = Record
     fields = '__all__'
     template_name = 'health/record_form.html'
     success_url = reverse_lazy('health:record_list')
+    permission_required = 'health.add_record'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        client_item = Client.objects.get(id=self.kwargs['pk'])
-        context['title'] = f'Создание записи для клиента {client_item.name} {client_item.surname}'
+        context['title'] = f'Создание записи для клиента'
         return context
-
-    def form_valid(self, form):
-        record = form.save(commit=False)
-        record.client_id = self.kwargs['pk']
-        record.save()
-        return super().form_valid(form)
 
     def get_queryset(self):
         return Record.objects.all()
@@ -139,11 +139,12 @@ class RecordDetailView(LoginRequiredMixin, DetailView):
         return Record.objects.filter(id=self.kwargs['pk'])
 
 
-class RecordUpdateView(LoginRequiredMixin, UpdateView):
+class RecordUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Record
     fields = '__all__'
     template_name = 'health/record_form.html'
     success_url = reverse_lazy('health:record_list')
+    permission_required = 'health.change_record'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -151,15 +152,13 @@ class RecordUpdateView(LoginRequiredMixin, UpdateView):
         context['title'] = f'Редактирование записи клиента {record_item.client.name} {record_item.client.surname}'
         return context
 
-    def get_queryset(self):
-        return Record.objects.filter(id=self.kwargs['pk'])
 
-
-class RecordDeleteView(DeleteView):
+class RecordDeleteView(PermissionRequiredMixin, DeleteView):
     model = Record
     fields = '__all__'
     template_name = 'health/record_confirm_delete.html'
     success_url = reverse_lazy('health:record_list')
+    permission_required = 'health.delete_record'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -167,3 +166,19 @@ class RecordDeleteView(DeleteView):
         context['title'] = f'Удаление записи клиента {record_item.client.name} {record_item.client.surname}'
         return context
 
+
+class DiagnosticsListView(PermissionRequiredMixin, ListView):
+    model = Diagnostics
+    fields = '__all__'
+    template_name = 'health/diagnostics_list.html'
+    success_url = reverse_lazy('services:service_list')
+    permission_required = 'health.view_diagnostics'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Лечебные консультации'
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        return queryset
