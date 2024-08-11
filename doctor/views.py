@@ -58,3 +58,8 @@ class DoctorDeleteView(DeleteView):
     model = Doctor
     template_name = 'doctor/doctor_confirm_delete.html'
     success_url = reverse_lazy('doctor:doctor_list')
+
+
+class OurDoctorView(ListView):
+    model = Doctor
+    template_name = 'doctor/our_doctor.html'

@@ -4,6 +4,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Doctor(models.Model):
+    avatar = models.ImageField(upload_to='doctor/', **NULLABLE)
     name = models.CharField(max_length=255, verbose_name='Имя доктора')
     patronymic = models.CharField(max_length=255, verbose_name='Отчество доктора', **NULLABLE)
     surname = models.CharField(max_length=255, verbose_name='Фамилия доктора')
