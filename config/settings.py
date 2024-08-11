@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-dg$pn25uv9zrxp0!*%xw+%^0a2epa(9(4g56j@7*um#5k@w91^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -85,7 +85,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'Blev2011!&',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': os.getenv('POSTGRES_PORT'),
     }
 }
 
@@ -156,3 +156,13 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 APSCHEDULER_TIMEZONE = 'Europe/Moscow'
+
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
+
+if CACHE_ENABLED:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': os.getenv('REDIS')
+        }
+    }
