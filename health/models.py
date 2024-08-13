@@ -24,11 +24,6 @@ class Client(models.Model):
         verbose_name = 'клиент'
         verbose_name_plural = 'клиенты'
         ordering = ['-created_at']
-        permissions = [
-            ('ca_add_client', 'Может добавлять клиента'),
-            ('can_change_client', 'Может изменять клиента'),
-            ('can_view_client', 'Может просматривать клиента'),
-        ]
 
 
 class Record(models.Model):
@@ -55,16 +50,15 @@ class Record(models.Model):
 
 
 class Diagnostics(models.Model):
-    record = models.ForeignKey(Record, on_delete=models.CASCADE, verbose_name='запись')
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Клиент')
     diagnosis = models.CharField(max_length=300, verbose_name='Диагноз')
     test = models.CharField(max_length=200, verbose_name='Тест')
     result = models.CharField(max_length=150, verbose_name='Результат')
     units_of_measurement = models.CharField(max_length=100, verbose_name='Единицы измерения')
     proper_values = models.CharField(max_length=100, verbose_name='Должные значения')
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Клиент')
 
     def __str__(self):
-        return f'{self.record.client.surname} {self.record.client.name} {self.record.client.patronymic} - ' \
+        return f'{self.client.surname} {self.client.name} {self.client.patronymic} - ' \
                f'Тест: {self.test}, Результат: {self.result}, Единицы измерения: {self.units_of_measurement}' \
                f'Должные значения: {self.proper_values}, Диагноз: {self.diagnosis}'
 

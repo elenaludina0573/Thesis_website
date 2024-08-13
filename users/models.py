@@ -24,3 +24,9 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
+        permissions = [
+            ('can_add_client', 'Может добавлять клиента'),
+            ('can_change_client', 'Может изменять клиента'),
+            ('can_view_client', 'Может просматривать клиента'),
+            ('can_delete_client', 'Может удалять клиента'),
+        ]

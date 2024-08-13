@@ -18,6 +18,11 @@ class Service(models.Model):
         verbose_name = 'Услуга'
         verbose_name_plural = 'Услуги'
         ordering = ['name']
+        permissions = [
+            ('can_add_service', 'Может добавлять услугу'),
+            ('can_change_service', 'Может изменять услугу'),
+            ('can_view_service', 'Может просматривать услугу'),
+        ]
 
 
 class Contact(models.Model):
