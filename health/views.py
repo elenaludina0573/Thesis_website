@@ -22,7 +22,6 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ClientDetailView(LoginRequiredMixin, DetailView):
     model = Client
-    fields = '__all__'
     template_name = 'health/client_detail.html'
     success_url = reverse_lazy('health:client_list.html')
 
@@ -78,7 +77,6 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
-    fields = '__all__'
     template_name = 'health/client_confirm_delete.html'
     success_url = reverse_lazy('health:client_list.html')
 
@@ -125,7 +123,6 @@ class RecordCreateView(PermissionRequiredMixin, CreateView):
 
 class RecordDetailView(LoginRequiredMixin, DetailView):
     model = Record
-    fields = '__all__'
     template_name = 'health/record_detail.html'
     success_url = reverse_lazy('health:record_list')
 
@@ -155,7 +152,6 @@ class RecordUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class RecordDeleteView(PermissionRequiredMixin, DeleteView):
     model = Record
-    fields = '__all__'
     template_name = 'health/record_confirm_delete.html'
     success_url = reverse_lazy('health:record_list')
     permission_required = 'health.delete_record'
@@ -178,7 +174,3 @@ class DiagnosticsListView(PermissionRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Лечебные консультации'
         return context
-
-    def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
-        return queryset

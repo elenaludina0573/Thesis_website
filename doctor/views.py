@@ -14,9 +14,11 @@ class DoctorListView(ListView):
         return context
     success_url = reverse_lazy('doctor: doctor_list')
 
-    def get_queryset(self, *args, **kwargs):
-        queryset = Doctor.objects.all(*args, **kwargs)
-        return queryset
+    def get_template_names(self):
+        if self.request.path == '/doctor/':
+            return ['doctor/our_doctors.html']
+        elif self.request.path == '/':
+            return ['doctor/doctor_list.html']
 
 
 class DoctorCreateView(CreateView):
@@ -33,14 +35,13 @@ class DoctorCreateView(CreateView):
         return super().form_valid(form)
 
     def get_queryset(self, *args, **kwargs):
-        queryset =Doctor.object.all(*args, **kwargs)
+        queryset =Doctor.objects.all(*args, **kwargs)
         return queryset
 
 
 class DoctorDetailView(DetailView):
     model = Doctor
     template_name = 'doctor/doctor_detail.html'
-    success_url = reverse_lazy('doctor:doctors_list')
 
 
 class DoctorUpdateView(UpdateView):

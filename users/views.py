@@ -73,13 +73,17 @@ class ResetPassword(TemplateView):
             user.set_password(new_password)
         user.save()
         message = (f'Ваш новый пароль: {new_password}'
-                   f'Сохраняйте в тайне!')
-        send_mail(
-            subject='Новый пароль',
-            message=message,
-            from_email=EMAIL_HOST_USER,
-            recipient_list=[user.email]
-        )
+                   f' Сохраняйте в тайне!')
+        print(message)
+        try:
+            send_mail(
+                subject='Новый пароль',
+                message=message,
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[user.email]
+            )
+        except:
+            pass
         return redirect('users:login')
 
 
