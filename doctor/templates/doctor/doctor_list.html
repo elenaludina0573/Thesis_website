@@ -121,8 +121,8 @@
                     <h1 class="display-4">Приветствуем вас в нашем уютном центре!</h1>
                     <p class="lead">Мы предоставляем широкий спектр услуг в сфере диагностики, лечения и медицинского
                         обслуживания. Наша цель - помочь вашему здоровью и улучшить качество жизни.</p>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'services:service_list' %}">Главная</a>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Личный кабинет</a>
+                    <a class="p-2 btn btn-primary" href="{% url 'services:service_list' %}">Главная</a>
+                    <a class="p-2 btn btn-primary" href="{% url 'users:login' %}">Личный кабинет</a>
                 </div>
             </div>
         </div>
@@ -151,20 +151,7 @@
                         <h1 class="display-11 fw-bold text-body-emphasis">{{ object.surname }}</h1></p>
                         <p class="card-text"> {{ object.specialization}}</p>
                         <p class="card-text"> {{ object.qualification }}</p>
-                        <p class="card-text"> Стаж - {{ object.experience }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-primary"
-                                        href="{% url 'doctor:doctor_detail' object.pk %}">Подробнее
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary"
-                                        href="{% url 'doctor:doctor_update' object.pk %}">Изменить
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary"
-                                        href="{% url 'doctor:doctor_confirm_delete' object.pk %}">Удалить
-                                </button>
-                            </div>
-                        </div>
+                        <p class="card-text"> Стаж работы- {{ object.experience }} лет</p>
                     </div>
                 </div>
             </div>
