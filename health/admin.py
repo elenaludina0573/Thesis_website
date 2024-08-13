@@ -13,6 +13,6 @@ class RecordAdmin(admin.ModelAdmin):
     list_display = ['pk', 'client', 'record_date', 'record_time', 'doctor']
 
 
-# @admin.register(Diagnostics)
-# class DiagnosticsAdmin(admin.ModelAdmin):
-#     list_display = ['pk', 'record', 'name', 'result', 'diagnosis']
+@admin.register(Diagnostics)
+class DiagnosticsAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'client', 'diagnosis', 'result', 'test', 'units_of_measurement', 'proper_values']
