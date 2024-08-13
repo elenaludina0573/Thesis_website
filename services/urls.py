@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from services.apps import ServiceConfig
 from services.views import ServiceCreateView, ServiceDetailView, ServiceUpdateView, ServiceDeleteView, \
@@ -7,7 +8,7 @@ from services.views import ServiceCreateView, ServiceDetailView, ServiceUpdateVi
 app_name = ServiceConfig.name
 
 urlpatterns = [
-    path('', ServiceListView.as_view(), name='service_list'),
+    path('', cache_page(5400)(ServiceListView.as_view()), name='service_list'),
     path('services/', ServiceListView.as_view(), name='service_main'),
     path('services/create/', ServiceCreateView.as_view(), name='service_form'),
     path('services/<int:pk>/', ServiceDetailView.as_view(), name='service_detail'),
