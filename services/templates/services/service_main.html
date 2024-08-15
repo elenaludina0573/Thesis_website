@@ -1,8 +1,8 @@
 {% extends 'services/base.html' %}
 {% block content %}
 <main>
-    <a class="btn btn-secondary my-2" href="{% url 'services:service_list' %}">Главная</a>
-    <a href="{% url 'health:record_list' %}" class="btn btn-secondary my-2">Просмотр записи на прием</a>
+    <a class="btn btn-secondary my-2" href="{% url 'health:record_list' %}" >Просмотр записи на прием</a>
+    <a href="{% url 'health:diagnostics_list' %}" class="btn btn-secondary my-2">Результаты диагностики</a>
     <form method="post" action="" class="form-floating">
         {% csrf_token %}
         <div class="px-4 pt-5 my-5 text-center border-bottom">
@@ -17,7 +17,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                 {% for object in object_list %}
                 <div class="col">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm h-100">
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
                              xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
                              preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
