@@ -7,7 +7,7 @@
     <div class="card-body">
         <h5 class="card-title">{{ object.client }}</h5>
         <p class="card-text">Дата рождения: {{ object.client.birth_date }} </p>
-        <p class="card-text">Пол:  </p>
+        <p class="card-text">Пол: </p>
         <p class="card-text">Возраст: </p>
         <p class="card-text">Адрес: {{ object.client.address }} </p>
     </div>
@@ -47,10 +47,6 @@
         <h5 class="card-title">{{ object.result }}</h5>
         <p class="card-text"></p>
     </div>
-    {% endfor %}
-</div>
-<div class="card border-warning mb-3" style="max-width: 18rem;">
-    {% for object in object_list %}
     <div class="card-header">Диагноз</div>
     <div class="card-body">
         <h5 class="card-title">{{ object.diagnosis }}</h5>
@@ -60,3 +56,5 @@
 </div>
 {% endblock %}
 </div>
+
+</body>

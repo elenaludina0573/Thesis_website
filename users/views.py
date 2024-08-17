@@ -31,13 +31,13 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        user.is_active = True
+        user.is_active = False
         user.set_password(user.password)
         verification_code = secrets.token_hex(16)
         user.verification_code = verification_code
-        user.save()
         host = self.request.get_host()
         url = f'http://{host}/users/email-confirm/{verification_code}'
+        print(url)
         send_mail(
             subject='Подтверждение почты',
             message=f'Привет, переди по ссылке для подтверждения почты {url}',
@@ -49,7 +49,6 @@ class RegisterView(CreateView):
 
 
 def email_verification(request, verification_code):
-    verification_code = request.POST.get('verification_code')
     user = get_object_or_404(User, verification_code=verification_code)
     if user:
         user.is_active = True
