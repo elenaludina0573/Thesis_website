@@ -13,7 +13,7 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='users/avatars', verbose_name='аватар', **NULLABLE)
     city = models.CharField(max_length=100, verbose_name='город', **NULLABLE)
 
-    verification_code = models.CharField(max_length=100, verbose_name='код', **NULLABLE)
+    verification_code = models.CharField(max_length=100, unique=True, verbose_name='код', **NULLABLE)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -24,9 +24,3 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
-        permissions = [
-            ('can_add_client', 'Может добавлять клиента'),
-            ('can_change_client', 'Может изменять клиента'),
-            ('can_view_client', 'Может просматривать клиента'),
-            ('can_delete_client', 'Может удалять клиента'),
-        ]
