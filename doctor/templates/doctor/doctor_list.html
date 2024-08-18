@@ -113,42 +113,46 @@
 </svg>
 
 <main>
-    <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-md-7 py-4">
-                    <h4 class="text-primary">О нас</h4>
-                    <p class="text-white">Медецинский центр "ЗДОРОВЬЕ"– это мощный
-                        многопрофильный лечебно-диагностический комплекс. На протяжении 30 лет центр остается ведущим
-                        учреждением оказания высококвалифицированной медицинской помощи. Высокая
-                        компетентность и профессионализм наших специалистов, подкрепленные обновленной
-                        материально-технической базой центра, позволяют с высокой точностью проводить обследования и
-                        осуществлять диагностику заболеваний в любых самых сложных случаях. В штате диагностического
-                        центра кандидаты медицинских наук, врачи высшей категории, имеющие серьезный опыт работы и
-                        владеющие современными методиками диагностики и лечения.</p>
-                </div>
-                <div class="col-sm-4 offset-md-1 py-4">
-                    <h4 class="text-primary">Это Вам понадобится</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'services:contact_list' %}" class="text-white">Контакты</a></li>
-                        <li><a href="{% url 'services:site_map_list' %}" class="text-white">Карта сайта</a></li>
-                        <li><a href="{% url 'services:feedback_list' %}" class="text-white">Обратная связь</a></li>
-                    </ul>
-                </div>
-            </div>
+
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                <strong>Медицинский центр - Здоровье</strong>
+            </a>
+
         </div>
-    </div>
-    <section class="pb-5">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h1 class="display-4">Приветствуем вас в нашем уютном центре!</h1>
-                    <p class="lead">Мы предоставляем широкий спектр услуг в сфере диагностики, лечения и медицинского
-                        обслуживания. Наша цель - помочь вашему здоровью и улучшить качество жизни.</p>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'services:service_list' %}">Главная</a>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'services:service_list' %}">Главная</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'doctor:our_doctors' %}">О компании</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'services:service_main' %}">Наши
+                        услуги</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'doctor:doctor_list' %}">Наши врачи</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'services:contact_list' %}">Контакты</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'services:feedback_list' %}">Обратная
+                        связь</a>
                     {% if not user.is_authenticated %}
                     <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Личный кабинет</a>
                     {% endif %}
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <section class="pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="display-4">Приветствуем вас в нашем уютном центре!</h1>
+                    <p class="lead">Мы предоставляем широкий спектр услуг в сфере диагностики, лечения и медицинского
+                        обслуживания. Наша цель - помочь вашему здоровью и улучшить качество жизни.</p>
                 </div>
             </div>
         </div>
