@@ -105,7 +105,7 @@ class RecordListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return queryset
 
 
-class RecordCreateView(PermissionRequiredMixin, CreateView):
+class RecordCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Record
     fields = '__all__'
     template_name = 'health/record_form.html'
