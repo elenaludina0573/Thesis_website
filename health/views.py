@@ -87,7 +87,7 @@ class ClientDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 
-class RecordListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class RecordListView(ListView):
     model = Record
     fields = '__all__'
     template_name = 'health/record_list.html'
@@ -105,7 +105,7 @@ class RecordListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return queryset
 
 
-class RecordCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class RecordCreateView(CreateView):
     model = Record
     fields = '__all__'
     template_name = 'health/record_form.html'
@@ -121,7 +121,7 @@ class RecordCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return Record.objects.all()
 
 
-class RecordDetailView(LoginRequiredMixin, DetailView):
+class RecordDetailView(DetailView):
     model = Record
     template_name = 'health/record_detail.html'
     success_url = reverse_lazy('health:record_list')
@@ -136,7 +136,7 @@ class RecordDetailView(LoginRequiredMixin, DetailView):
         return Record.objects.filter(id=self.kwargs['pk'])
 
 
-class RecordUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class RecordUpdateView(UpdateView):
     model = Record
     fields = '__all__'
     template_name = 'health/record_form.html'
@@ -150,7 +150,7 @@ class RecordUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return context
 
 
-class RecordDeleteView(PermissionRequiredMixin, DeleteView):
+class RecordDeleteView(DeleteView):
     model = Record
     template_name = 'health/record_confirm_delete.html'
     success_url = reverse_lazy('health:record_list')
@@ -163,7 +163,7 @@ class RecordDeleteView(PermissionRequiredMixin, DeleteView):
         return context
 
 
-class DiagnosticsListView(PermissionRequiredMixin, ListView):
+class DiagnosticsListView(ListView):
     model = Diagnostics
     fields = '__all__'
     template_name = 'health/diagnostics_list.html'
