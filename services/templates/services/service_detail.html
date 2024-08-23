@@ -10,9 +10,13 @@
         <div class="container text-center">
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-3">
                 <div class="col">
-                    <p class="card shadow-sm">
-                        <img class="card-img-top" src="/media/1660889362_25-kartinkin-net-p-meditsinskie-oboi-krasivo-31.jpg" alt="">
-                    </p>
+                    <svg class="bd- aceholder-img card-img-top" width="100%" height="15"
+                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label=""
+                         preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                        <img class="card-img-top" src="/media/{{ object.picture }}" alt="Фото врача">
+                        <rect width="100%" height="100%" fill="#55595c"/>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                    </svg>
                 </div>
                 <div class="col-5 text-md-start">
                     {{ object.description}}

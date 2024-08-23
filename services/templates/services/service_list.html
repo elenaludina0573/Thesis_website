@@ -2,7 +2,7 @@
 
 {% block content %}
 <main>
-    <div class="collapse bg-dark" id="navbarHeader">
+    <div class="collapse" id="navbarHeader">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
@@ -51,7 +51,7 @@
             {% for object in object_list %}
             <div class="col">
                 <div class="card h-100">
-                    <img  src="/media/services/{{ object.picture }}" alt="Card image cap">
+                    <img class="card-img-top" src="/media/{{ object.picture }}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{ object.name|title }}</h5>
                         <p class="card-text">{{ object.description }}</p>
